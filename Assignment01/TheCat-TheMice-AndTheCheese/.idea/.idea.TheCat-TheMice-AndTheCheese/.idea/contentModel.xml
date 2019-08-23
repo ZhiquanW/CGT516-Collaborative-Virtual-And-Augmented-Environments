@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\wang4490\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\wang4490\.Rider2019.2\system\resharper-host\Local\Transient\ReSharperHost\v192\SolutionCaches\_TheCat-TheMice-AndTheCheese.-749175401.00" t="ExcludeRecursive" />
+    <e p="C:\Users\wang4490\Documents\CGT516-Collaborative-Virtual-And-Augmented-Environments\Assignment01\TheCat-TheMice-AndTheCheese" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="AutoHelperController.cs" t="Include" />
+          <e p="CatController.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
+          <e p="HelperController.cs" t="Include" />
+          <e p="PlayerController.cs" t="Include" />
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="TheCat-TheMice-AndTheCheese.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
