@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
 	[SerializeField] private float maxHeight;
 
+	public GameObject obstacleObj;
 	private Rigidbody playerRigidbody;
 
 	// Use this for initialization
@@ -23,7 +24,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		moveDir = new Vector3(Input.GetAxis("Horizontal"), -0.1f, Input.GetAxis("Vertical"));
 		playerRigidbody.velocity = moveDir * moveSpeed;
-		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			Instantiate(obstacleObj, this.transform.position-playerRigidbody.velocity*0.1f,Quaternion.identity);
+		}
 	}
 
 	private void OnCollisionEnter(Collision other) {
