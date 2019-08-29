@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		moveDir = new Vector3(Input.GetAxis("Horizontal"), -0.1f, Input.GetAxis("Vertical"));
-		playerRigidbody.velocity = moveDir * moveSpeed;
+		playerRigidbody.velocity = moveDir * moveSpeed ;
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Instantiate(obstacleObj, this.transform.position-playerRigidbody.velocity*0.1f,Quaternion.identity);
 		}
