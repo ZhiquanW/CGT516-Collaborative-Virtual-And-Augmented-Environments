@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: a1bdb5d0fe327c949ad36bc69b1a78d6
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: body
+    100004: bottom
+    100006: doors
+    100008: front_bumper
+    100010: glass
+    100012: headlight
+    100014: interior
+    100016: radiator
+    100018: rear_bumper
+    100020: roof
+    100022: trunck
+    100024: wheel_f_l
+    100026: wheel_f_r
+    100028: wheel_l
+    100030: wheel_r
+    100032: wheel_r_l
+    100034: wheel_r_r
+    100036: wings
+    400000: //RootNode
+    400002: body
+    400004: bottom
+    400006: doors
+    400008: front_bumper
+    400010: glass
+    400012: headlight
+    400014: interior
+    400016: radiator
+    400018: rear_bumper
+    400020: roof
+    400022: trunck
+    400024: wheel_f_l
+    400026: wheel_f_r
+    400028: wheel_l
+    400030: wheel_r
+    400032: wheel_r_l
+    400034: wheel_r_r
+    400036: wings
+    2100000: 'Material #35'
+    2100002: Tire2
+    2100004: 'Material #36'
+    2100006: 'Material #37'
+    2100008: 'Material #48'
+    2100010: 'Material #49'
+    2100012: 'Material #60'
+    2100014: 'Material #61'
+    2100016: 'Material #62'
+    2100018: 'Material #63'
+    2100020: Default Metallic Paint
+    2100022: 'Material #94'
+    2100024: 'Material #95'
+    2100026: 'Material #96'
+    2100028: 13 - Default
+    2100030: 'Material #117'
+    2100032: 'Material #198'
+    2100034: 'Material #199'
+    2100036: 'Material #200'
+    2300000: body
+    2300002: bottom
+    2300004: doors
+    2300006: front_bumper
+    2300008: glass
+    2300010: headlight
+    2300012: interior
+    2300014: radiator
+    2300016: rear_bumper
+    2300018: roof
+    2300020: trunck
+    2300022: wheel_f_l
+    2300024: wheel_f_r
+    2300026: wheel_l
+    2300028: wheel_r
+    2300030: wheel_r_l
+    2300032: wheel_r_r
+    2300034: wings
+    3300000: body
+    3300002: bottom
+    3300004: doors
+    3300006: front_bumper
+    3300008: glass
+    3300010: headlight
+    3300012: interior
+    3300014: radiator
+    3300016: rear_bumper
+    3300018: roof
+    3300020: trunck
+    3300022: wheel_f_l
+    3300024: wheel_f_r
+    3300026: wheel_l
+    3300028: wheel_r
+    3300030: wheel_r_l
+    3300032: wheel_r_r
+    3300034: wings
+    4300000: wheel_f_l
+    4300002: roof
+    4300004: rear_bumper
+    4300006: bottom
+    4300008: trunck
+    4300010: doors
+    4300012: headlight
+    4300014: radiator
+    4300016: wings
+    4300018: wheel_r_l
+    4300020: wheel_l
+    4300022: wheel_r
+    4300024: wheel_r_r
+    4300026: wheel_f_r
+    4300028: front_bumper
+    4300030: body
+    4300032: glass
+    4300034: interior
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
