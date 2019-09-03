@@ -5,112 +5,116 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
     public Button colorButton;
     public Button textureButton;
+    public Slider sizeSilder;
+    public Slider poxXSilder;
     public GameObject[] colorButtonPosList;
     public GameObject[] textureButtonPosList;
     public bool isSubColorHiden;
     public bool isSubTextureHiden;
     public Color[] colorList;
-    public bool[] colorChosen = new bool[3];
-    public bool[] textureChosen = new bool[3];
+    public int colorChosen;
+    public int textureChosen;
     public Sprite[] textureList;
-
-    void Awake()
-    {
+    public bool activeReplace;
+    void Awake() {
     }
     // Use this for initialization
-    void Start () {
+    void Start() {
         isSubColorHiden = true;
         isSubTextureHiden = true;
-        for(int i = 0;i < colorButtonPosList.Length;++i)
-        {
+        for (int i = 0; i < colorButtonPosList.Length; ++i) {
             colorButtonPosList[i].GetComponent<Image>().color = colorList[i];
         }
-        for(int i = 0;i < textureButtonPosList.Length;++i)
-        {
-            textureButtonPosList[i].GetComponent<Image>().sprite= textureList[i];
+        for (int i = 0; i < textureButtonPosList.Length; ++i) {
+            textureButtonPosList[i].GetComponent<Image>().sprite = textureList[i];
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    public void popupSubMenuColor()
-    {
-        if (isSubColorHiden)
-        {
-            for (int i = 0; i < colorButtonPosList.Length; ++i)
-            {
+    }
+
+    // Update is called once per frame
+    void Update() {
+
+    }
+    public void popupSubMenuColor() {
+        if (isSubColorHiden) {
+            for (int i = 0; i < colorButtonPosList.Length; ++i) {
                 colorButtonPosList[i].SetActive(true);
+                textureChosen = -1;
             }
-        }
-        else
-        {
-            for (int i = 0; i < colorButtonPosList.Length; ++i)
-            {
+        } else {
+            for (int i = 0; i < colorButtonPosList.Length; ++i) {
                 colorButtonPosList[i].SetActive(false);
-                clearChosen();
+                colorChosen = -1;
+
             }
         }
         isSubColorHiden = !isSubColorHiden;
     }
-    public void popupSubMenuTexture()
-    {
-        if (isSubTextureHiden)
-        {
-            for (int i = 0; i < textureButtonPosList.Length; ++i)
-            {
+    public void popupSubMenuTexture() {
+        if (isSubTextureHiden) {
+            for (int i = 0; i < textureButtonPosList.Length; ++i) {
                 textureButtonPosList[i].SetActive(true);
+                colorChosen = -1;
+                activeReplace = false;
             }
-        }
-        else
-        {
-            for (int i = 0; i < textureButtonPosList.Length; ++i)
-            {
+        } else {
+            for (int i = 0; i < textureButtonPosList.Length; ++i) {
                 textureButtonPosList[i].SetActive(false);
-                clearChosen();
+                textureChosen = -1;
+                activeReplace = false;
             }
         }
         isSubTextureHiden = !isSubTextureHiden;
     }
-    public void color0()
-    {
-        clearChosen();
-        colorChosen[0] = true;
+
+    public void changePosX() {
+        if (GameManager.instance.selectedPart != null) {
+            int tmpId = -1;
+            for(int i = 0;i < GameManager.instance.iniTransformList.Length;++i) {
+                if(GameManager.instance.carPartList[i] == GameManager.instance.selectedPart) {
+                    tmpId = i;
+                    break;
+                }
+            }
+            Debug.Log(poxXSilder.value);
+            GameManager.instance.selectedPart.transform.position = GameManager.instance.iniTransformList[tmpId] + (float)(poxXSilder.value - 0.5f) * new Vector3(5, 0, 0);
+            Debug.Log((float)(poxXSilder.value - 0.5f) * new Vector3(5, 0, 0));
+
+        }
     }
-    public void color1()
-    {
-        clearChosen();
-        colorChosen[1] = true;
-    }
-    public void color2()
-    {
-        clearChosen();
-        colorChosen[2] = true;
+    public void changeSize() {
+        if(GameManager.instance.selectedPart != null) {
+            Debug.Log(sizeSilder.value);
+            GameManager.instance.selectedPart.transform.localScale = new Vector3(1 + sizeSilder.value, 1 + sizeSilder.value, 1 + sizeSilder.value);
+
+        }
     }
 
-    public void texture0()
-    {
-        clearChosen();
-        textureChosen[0] = true;
+    public void replace() {
+        activeReplace = !activeReplace;
+        colorChosen = -1;
+        textureChosen = -1;
     }
-    public void texture1()
-    {
-        clearChosen();
-        textureChosen[1] = true;
+    public void color0() {
+        colorChosen = 0;
     }
-    public void texture2()
-    {
-        clearChosen();
-           textureChosen[2] = true;
+    public void color1() {
+        colorChosen = 1;
     }
-    void clearChosen()
-    {
-        for(int i = 0;i < 3;++i)
-        {
-            colorChosen[i] = false;
-            textureChosen[i] = false;
-        }
+    public void color2() {
+        colorChosen = 2;
+    }
+
+    public void texture0() {
+
+        textureChosen = 0;
+    }
+    public void texture1() {
+        textureChosen = 1;
+
+    }
+    public void texture2() {
+        textureChosen = 2;
+
     }
     //void OnGUI()
     //{
