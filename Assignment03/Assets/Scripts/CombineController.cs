@@ -21,11 +21,9 @@ public class CombineController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider colliderInfo) {
-        if (colliderInfo.name == "Combine11")
-            //float tmpP = colliderInfo.contactOffset;
-            father.transform.position = colliderInfo.gameObject.transform.position;
+        if (colliderInfo.name == "Combine11") {
             father.setBoxCollider();
-
-        
+            UIManager.instance.UpdateInstruction();
+        }
     }
 }

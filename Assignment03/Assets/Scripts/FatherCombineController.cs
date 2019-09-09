@@ -7,6 +7,8 @@ public class FatherCombineController : MonoBehaviour
     public GameObject[] children;
     public BoxCollider[] boxes;
     public bool isAttached;
+    public int[] preTarget;
+    public int[] postTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,9 @@ public class FatherCombineController : MonoBehaviour
     }
    public void setBoxCollider() {
         if (!isAttached) {
+            this.transform.position = GameManager.instance.preObjPos;
+
             for (int i = 0; i < boxes.Length; ++i) {
-                Debug.Log("3");
                 boxes[i].size = children[i].GetComponent<BoxCollider>().size;
                 boxes[i].center = children[i].transform.position - this.transform.position;
                 children[i].transform.SetParent(this.transform);
@@ -31,10 +34,14 @@ public class FatherCombineController : MonoBehaviour
             isAttached = !isAttached;
             this.gameObject.AddComponent<Rigidbody>();
             this.GetComponent<Rigidbody>().useGravity = false;
-            
+            GameManager.instance.DeactivateTargetObjects(preTarget);
+            GameManager.instance.DeactivateTargetObjects(postTarget);
+            foreach(var i in preTarget) {
+                GameManager.instance.gameObjArr[i].GetComponent<TargetObjController>().isTarget = false;
+
+            }
+
+
         }
-       
-
-
     }
 }
