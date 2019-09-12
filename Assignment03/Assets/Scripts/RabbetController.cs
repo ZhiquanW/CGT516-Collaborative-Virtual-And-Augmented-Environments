@@ -17,7 +17,7 @@ public class RabbetController : MonoBehaviour
         
     }
 
-    void OnTriggerStay(Collider colliderInfo) {
+    void OnTriggerEnter(Collider colliderInfo) {
         if(colliderInfo.gameObject.name == "Key") {
             isPlugIn = true;
             UIManager.instance.UpdateInstruction();

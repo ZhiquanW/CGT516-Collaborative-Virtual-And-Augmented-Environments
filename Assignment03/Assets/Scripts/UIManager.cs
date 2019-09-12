@@ -21,5 +21,6 @@ public class UIManager : MonoBehaviour {
     }
     public void UpdateInstruction() {
         instructionText.text = instructions[index++];
+        GameManager.instance.audioManager.Play();
     }
 }

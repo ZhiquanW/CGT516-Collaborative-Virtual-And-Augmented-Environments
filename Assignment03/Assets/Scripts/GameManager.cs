@@ -6,9 +6,11 @@ public class GameManager : MonoBehaviour {
     public GameObject[] gameObjArr;
     public Camera mainCamera;
     public GameObject rabbetObj;
+    public GameObject keyObj;
     Vector3 prePos = new Vector3(0, 0, 0);
     public Vector3 preObjPos;
     GameObject chosenObj;
+    public AudioSource audioManager;
     public static GameManager instance;
     void Awake() {
         instance = this;
@@ -56,8 +58,12 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKey(KeyCode.R)) {
             chosenObj.GetComponent<Rigidbody>().AddTorque(Vector3.forward * 10);
             if(UIManager.instance.index == 2) {
-                Debug.Log("11");
                 UIManager.instance.UpdateInstruction();
+                rabbetObj.GetComponent<TargetObjController>().isTarget = true;
+                keyObj.GetComponent<TargetObjController>().isTarget = true;
+            }else if (UIManager.instance.index == 4) {
+                rabbetObj.GetComponent<TargetObjController>().isTarget = false;
+                keyObj.GetComponent<TargetObjController>().isTarget = false;
             }
         }
         //scale 
