@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public Camera mainCamera;
     public GameObject rabbetObj;
     public GameObject keyObj;
+
     Vector3 prePos = new Vector3(0, 0, 0);
     public Vector3 preObjPos;
     GameObject chosenObj;
@@ -61,9 +62,14 @@ public class GameManager : MonoBehaviour {
                 UIManager.instance.UpdateInstruction();
                 rabbetObj.GetComponent<TargetObjController>().isTarget = true;
                 keyObj.GetComponent<TargetObjController>().isTarget = true;
+                gameObjArr[2].GetComponent<TargetObjController>().isDone = true;
+                gameObjArr[3].GetComponent<TargetObjController>().isDone = true;
             }else if (UIManager.instance.index == 4) {
+              
                 rabbetObj.GetComponent<TargetObjController>().isTarget = false;
                 keyObj.GetComponent<TargetObjController>().isTarget = false;
+                gameObjArr[0].GetComponent<TargetObjController>().isDone = true;
+                gameObjArr[1].GetComponent<TargetObjController>().isDone = true;
             }
         }
         //scale 

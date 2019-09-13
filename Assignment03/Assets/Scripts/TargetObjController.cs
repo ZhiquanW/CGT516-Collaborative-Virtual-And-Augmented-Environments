@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TargetObjController : MonoBehaviour {
     public bool isTarget;
+    public bool isDone;
     public Color targetObjColor;
     public Color previousColor;
+    public Color doneColor;
     public float colorChangeSpeed;
     public MeshRenderer[] renderers;
     // Start is called before the first frame update
@@ -19,9 +21,9 @@ public class TargetObjController : MonoBehaviour {
             foreach(var render in renderers) {
                 render.material.color = Color.Lerp(render.material.color,targetObjColor * Mathf.Abs(Mathf.Cos(Time.time))*targetObjColor, colorChangeSpeed);
             }
-        } else {
+        } else if(isDone){
             foreach (var render in renderers) {
-                render.material.color = Color.Lerp(render.material.color, previousColor, colorChangeSpeed);
+                render.material.color = Color.Lerp(render.material.color, doneColor, colorChangeSpeed);
             }
         }
     }
