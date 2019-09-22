@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,35 +12,52 @@ public class Audio {
     }
     public AudioClip[] audios;
     public AudioSource audioSource;
-    public AudioSource audioSound;
+    public AudioSource backgroundSource;
     Audio(AudioClip[] audios) {
         this.audios = audios;
     }
 }
 public class GantryCraneController : MonoBehaviour {
 
-
+    public static GantryCraneController instance;
     public bool isEngineOn;
     public GameObject[] arms;
     public Vector2 armLenConstraint;
     public float moveSpeed = 0.0f;
     public float liftSpeeed = 0.0f;
     public Audio craneAudio;
-
-    public GameObject middlePole;
-    public Vector2 middlePoleLenRange; 
+    public GameObject frontHandPole;
     public GameObject frontHand;
-
+    public GameObject backHandPole;
     public GameObject backHand;
+    public Vector2 handRange; 
+    public bool isEngineIgnited;
+    public float engineTimer;
+
+    public HandDetector[]  detectors;
+    public GameObject caughtCargo;
+    public Transform refTransform;
+    public Vector3 offsetPos;
+    public bool isLock;
+
+    private void Awake() {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start() {
-        PlayCraneBackground();
-        craneAudio.audioSound.volume = 0;
     }
 
     // Update is called once per frame
     void Update() {
-      
+        if (isEngineIgnited) {
+            engineTimer += Time.deltaTime;
+            GameManager.instance.cockpit.LiftCockpit();
+            if (engineTimer > 7) {
+                isEngineOn = true;
+                isEngineIgnited = false;
+            }
+        }
         if (isEngineOn) {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -47,31 +65,35 @@ public class GantryCraneController : MonoBehaviour {
             MoveCrane(h);   
             LiftArms(-v);
             SlideHands(s);
-            //Set Crane Background Sound to 1 
-            if (!craneAudio.audioSource.isPlaying) {
-                craneAudio.audioSound.volume = 1;
-            }
+            engineTimer += Time.deltaTime;
         }
         else {
             if (Input.GetKeyDown(KeyCode.E)) {
                 StartEngine();
-                isEngineOn = true;
+                isEngineIgnited = true;
             }
-          
         }
-      
+
+        isLock = detectors[0].isAttachCargo && detectors[1].isAttachCargo &&
+                  detectors[0].targetCargo == detectors[1].targetCargo;
+        if (isLock) {
+            catchCargo();
+        }
+        else {
+            caughtCargo.GetComponent<Rigidbody>().isKinematic = false;
+        }
     }
 
     void StartEngine() {
-        craneAudio.audioSource.clip = craneAudio.audios[(int) Audio.Index.StartEngine];
+        craneAudio.audioSource.clip = craneAudio.audios[(int) Audio.Index.StartEngine]; 
         craneAudio.audioSource.Play();
-        craneAudio.audioSound.volume = 0.5f;
+        craneAudio.backgroundSource.clip = craneAudio.audios[(int) Audio.Index.Common];
+        craneAudio.backgroundSource.volume = 0.3f;
+        craneAudio.backgroundSource.Play();
+
     }
 
-    void PlayCraneBackground() {
-        craneAudio.audioSound.clip = craneAudio.audios[(int) Audio.Index.Common];
-        craneAudio.audioSound.Play();
-    }
+
     void MoveCrane(float _p) {
         this.transform.Translate(new Vector3(_p * moveSpeed * Time.deltaTime, 0.0f, 0.0f));
     }
@@ -85,21 +107,46 @@ public class GantryCraneController : MonoBehaviour {
             foreach (var arm in arms) {
                 arm.transform.localScale += _p *liftSpeeed* Time.deltaTime * Vector3.up;;
             }
-
-            //Debug.Log(_p);
             foreach (var hinge in hinges) {
                 hinge.anchor = new Vector3(0.0f, -2.0f, -0.0f);
             }
         }
+
+        if (Mathf.Abs(_p)<0.01f ) {
+            craneAudio.audioSource.Stop();
+            craneAudio.backgroundSource.volume = 1f;
+        }
+        else {
+            craneAudio.audioSource.clip = craneAudio.audios[(int) Audio.Index.LiftArms];
+            craneAudio.audioSource.volume = Mathf.Abs(_p);
+            if (!craneAudio.audioSource.isPlaying) {
+                craneAudio.audioSource.Play();
+                craneAudio.backgroundSource.volume = 0.6f;
+            }
+        }
+
     }
 
     void SlideHands(float _y) {
-        float tmpLen = middlePole.transform.localScale.y;
-        if ((tmpLen < middlePoleLenRange.x && _y > 0) ||
-            (tmpLen > middlePoleLenRange.y && _y < 0) ||
-            (middlePoleLenRange.x <= tmpLen && tmpLen <= middlePoleLenRange.y)) {
-            middlePole.transform.localScale += _y * Time.deltaTime * Vector3.up;
-            frontHand.transform.position += 9*_y * Time.deltaTime * Vector3.up;
+        float tmpLen = frontHandPole.transform.localScale.z;
+        if (isLock && _y > 0) {
+            return;
+        }
+        if ((tmpLen < handRange.x && _y > 0) ||
+            (tmpLen > handRange.y && _y < 0) ||
+            (handRange.x <= tmpLen && tmpLen <= handRange.y)) {
+            frontHandPole.transform.localScale += _y * Time.deltaTime * Vector3.forward;
+            backHandPole.transform.localScale += _y * Time.deltaTime * Vector3.forward;
+            frontHand.transform.position += _y * Time.deltaTime * Vector3.forward;
+            backHand.transform.position -= _y * Time.deltaTime * Vector3.forward;
+
         }
     }
+
+    void catchCargo() {
+        caughtCargo.GetComponent<Rigidbody>().isKinematic = true;
+        caughtCargo.transform.position = refTransform.position + offsetPos;
+    }
+
+
 }
