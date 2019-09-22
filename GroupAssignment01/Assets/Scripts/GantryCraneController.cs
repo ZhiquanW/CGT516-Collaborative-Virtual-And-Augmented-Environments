@@ -11,6 +11,7 @@ public class Audio {
     }
     public AudioClip[] audios;
     public AudioSource audioSource;
+    public AudioSource audioSound;
     Audio(AudioClip[] audios) {
         this.audios = audios;
     }
@@ -25,20 +26,31 @@ public class GantryCraneController : MonoBehaviour {
     public float liftSpeeed = 0.0f;
     public Audio craneAudio;
 
+    public GameObject middlePole;
+    public Vector2 middlePoleLenRange; 
+    public GameObject frontHand;
+
+    public GameObject backHand;
     // Start is called before the first frame update
     void Start() {
-        
+        PlayCraneBackground();
+        craneAudio.audioSound.volume = 0;
     }
 
     // Update is called once per frame
     void Update() {
-
+      
         if (isEngineOn) {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             float s = Input.mouseScrollDelta.y;
             MoveCrane(h);   
-            LiftArms(v);
+            LiftArms(-v);
+            SlideHands(s);
+            //Set Crane Background Sound to 1 
+            if (!craneAudio.audioSource.isPlaying) {
+                craneAudio.audioSound.volume = 1;
+            }
         }
         else {
             if (Input.GetKeyDown(KeyCode.E)) {
@@ -53,11 +65,12 @@ public class GantryCraneController : MonoBehaviour {
     void StartEngine() {
         craneAudio.audioSource.clip = craneAudio.audios[(int) Audio.Index.StartEngine];
         craneAudio.audioSource.Play();
-        if (craneAudio.audioSource.time > 4) {
-            Debug.Log("11");
-            craneAudio.audioSource.clip = craneAudio.audios[(int) Audio.Index.Common];
-            craneAudio.audioSource.Play();
-        }
+        craneAudio.audioSound.volume = 0.5f;
+    }
+
+    void PlayCraneBackground() {
+        craneAudio.audioSound.clip = craneAudio.audios[(int) Audio.Index.Common];
+        craneAudio.audioSound.Play();
     }
     void MoveCrane(float _p) {
         this.transform.Translate(new Vector3(_p * moveSpeed * Time.deltaTime, 0.0f, 0.0f));
@@ -80,7 +93,13 @@ public class GantryCraneController : MonoBehaviour {
         }
     }
 
-    void SlideArms(float _y) {
-        
+    void SlideHands(float _y) {
+        float tmpLen = middlePole.transform.localScale.y;
+        if ((tmpLen < middlePoleLenRange.x && _y > 0) ||
+            (tmpLen > middlePoleLenRange.y && _y < 0) ||
+            (middlePoleLenRange.x <= tmpLen && tmpLen <= middlePoleLenRange.y)) {
+            middlePole.transform.localScale += _y * Time.deltaTime * Vector3.up;
+            frontHand.transform.position += 9*_y * Time.deltaTime * Vector3.up;
+        }
     }
 }
