@@ -62,13 +62,15 @@ public class GantryCraneController : MonoBehaviour {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             float s = Input.mouseScrollDelta.y;
+            Vector2 ss = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+            s = ss.y;
             MoveCrane(h);   
             LiftArms(-v);
             SlideHands(s);
             engineTimer += Time.deltaTime;
         }
         else {
-            if (Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetKeyDown(KeyCode.E) || OVRInput.GetDown(OVRInput.RawButton.A)) {
                 StartEngine();
                 isEngineIgnited = true;
             }
@@ -79,9 +81,7 @@ public class GantryCraneController : MonoBehaviour {
         if (isLock) {
             catchCargo();
         }
-        else {
-            caughtCargo.GetComponent<Rigidbody>().isKinematic = false;
-        }
+       
     }
 
     void StartEngine() {
@@ -148,5 +148,7 @@ public class GantryCraneController : MonoBehaviour {
         caughtCargo.transform.position = refTransform.position + offsetPos;
     }
 
-
+    public void dropCargo() {
+        caughtCargo.GetComponent<Rigidbody>().isKinematic = false;
+    }
 }

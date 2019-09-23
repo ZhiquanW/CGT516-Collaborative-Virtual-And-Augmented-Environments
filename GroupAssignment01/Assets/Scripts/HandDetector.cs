@@ -20,6 +20,7 @@ public class HandDetector : MonoBehaviour {
         
         if (other.transform.CompareTag("cargo")) {
             isAttachCargo = false;
+            GantryCraneController.instance.dropCargo();
         }
     }
 }
