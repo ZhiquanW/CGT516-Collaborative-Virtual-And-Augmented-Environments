@@ -63,7 +63,7 @@ public class GantryCraneController : MonoBehaviour {
             float v = Input.GetAxis("Vertical");
             float s = Input.mouseScrollDelta.y;
             Vector2 ss = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-            s = ss.y;
+            s += ss.y;
             MoveCrane(h);   
             LiftArms(-v);
             SlideHands(s);
